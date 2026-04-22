@@ -1,29 +1,91 @@
 <!DOCTYPE html>
-<html lang="it">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bibbia & Corano: La Sfida dei Detective</title>
+    <title>Detective della Bibbia</title>
     <style>
-        :root { --bibbia: #1a2a6c; --corano: #27ae60; --oro: #f2994a; --bg: #f8f9fa; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); margin: 0; padding: 20px; }
-        .container { max-width: 1100px; margin: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1 { text-align: center; color: var(--bibbia); text-transform: uppercase; letter-spacing: 2px; }
-        .intro { text-align: center; margin-bottom: 30px; color: #555; border-bottom: 2px solid #eee; padding-bottom: 20px; }
+        body { font-family: sans-serif; background-color: #f0f4f8; padding: 20px; color: #333; }
+        .box { max-width: 900px; margin: auto; background: white; padding: 20px; border-radius: 15px; shadow: 5px 5px 15px rgba(0,0,0,0.1); }
+        h1 { color: #1a2a6c; text-align: center; }
         
-        /* MEMORY DEI PERSONAGGI */
-        .character-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin: 30px 0; }
-        .card { perspective: 1000px; height: 180px; cursor: pointer; }
-        .card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; border-radius: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-        .card.flipped .card-inner { transform: rotateY(180px); }
-        .card-front, .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 15px; padding: 10px; box-sizing: border-box; }
-        .card-front { background: white; border: 2px solid var(--bibbia); color: var(--bibbia); }
-        .card-back { background: var(--corano); color: white; transform: rotateY(180px); font-size: 0.9em; }
-        .card-front strong { font-size: 1.3em; }
+        /* Griglia Personaggi */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin: 20px 0; }
+        .card { background: #1a2a6c; color: white; padding: 20px; border-radius: 10px; text-align: center; cursor: pointer; min-height: 100px; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+        .card:hover { background: #2a3a7c; }
 
-        /* TABELLA COORDINATE */
-        .mission-box { background: #fff3e0; padding: 20px; border-radius: 15px; border: 2px dashed var(--oro); margin-top: 40px; }
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; background: white; }
-        th { background: var(--bibbia); color: white; padding: 12px; }
-        td { padding: 12px; border: 1px solid #ddd; font-size: 0.95em; }
-        .coord-badge { background: #e8f0fe; color: #1a2a6
+        /* Missioni */
+        table { width: 100%; border-collapse: collapse; margin-top: 30px; }
+        th { background: #e67e22; color: white; padding: 10px; }
+        td { padding: 10px; border-bottom: 1px solid #ddd; font-size: 0.9em; }
+        .coord { font-family: monospace; font-weight: bold; background: #eee; padding: 3px; border-radius: 3px; }
+        .btn-link { display: block; text-align: center; background: #27ae60; color: white; padding: 15px; text-decoration: none; border-radius: 5px; margin: 20px 0; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h1>🕵️‍♂️ Digital Detective: Bibbia e Corano</h1>
+    
+    <p style="text-align: center;"><strong>Fase 1:</strong> Clicca sui personaggi per scoprire chi sono nel Corano e il loro ruolo!</p>
+
+    <div class="grid">
+        <div class="card" onclick="alert('BIBBIA: Abramo (Il padre della fede)\nCORANO: Ibrahim\nRUOLO: Amico di Dio e costruttore della Kaaba.')">ABRAMO</div>
+        <div class="card" onclick="alert('BIBBIA: Mosè (Il liberatore)\nCORANO: Musa\nRUOLO: Il profeta più citato nel Corano, salvato dalle acque.')">MOSÈ</div>
+        <div class="card" onclick="alert('BIBBIA: Gesù (Figlio di Dio)\nCORANO: Isa\nRUOLO: Grande profeta nato dalla Vergine Maria.')">GESÙ</div>
+        <div class="card" onclick="alert('BIBBIA: Maria (Madre di Gesù)\nCORANO: Maryam\nRUOLO: L\'unica donna con un capitolo a lei dedicato nel Corano.')">MARIA</div>
+        <div class="card" onclick="alert('BIBBIA: Giona (Il profeta nel pesce)\nCORANO: Yunus\nRUOLO: Il profeta della balena, simbolo di pentimento.')">GIONA</div>
+        <div class="card" onclick="alert('BIBBIA: Davide (Il Re dei Salmi)\nCORANO: Dawud\nRUOLO: Sconfigge Golia e riceve il libro dei Salmi.')">DAVIDE</div>
+        <div class="card" onclick="alert('BIBBIA: Elia (Il profeta del fuoco)\nCORANO: Ilyas\nRUOLO: Difensore del vero Dio contro gli idoli.')">ELIA</div>
+        <div class="card" onclick="alert('BIBBIA: Isaia (Il profeta della pace)\nCORANO: Ishiya (Tradizione)\nRUOLO: Annunciatore del banchetto per tutti i popoli.')">ISAIA</div>
+    </div>
+
+    <a href="https://www.bibbiaedu.it/CEI2008/" target="_blank" class="btn-link">➡️ CLICCA QUI PER APRIRE BIBBIAEDU</a>
+
+    <p><strong>Fase 2:</strong> Cerca questi brani usando le coordinate e scopri cosa dicono!</p>
+    
+    <table>
+        <tr>
+            <th>Episodio</th>
+            <th>Coordinate</th>
+            <th>Sintesi (Cosa succede?)</th>
+        </tr>
+        <tr>
+            <td>Davide e Golia</td>
+            <td><span class="coord">1Sam 17, 40-51</span></td>
+            <td>Davide sconfigge il gigante con una fionda e un sasso.</td>
+        </tr>
+        <tr>
+            <td>Il Buon Samaritano</td>
+            <td><span class="coord">Lc 10, 30-37</span></td>
+            <td>Un nemico (Samaritano) aiuta un ferito ignorato da tutti.</td>
+        </tr>
+        <tr>
+            <td>Giacobbe e l'Angelo</td>
+            <td><span class="coord">Gen 32, 23-33</span></td>
+            <td>Giacobbe lotta tutta la notte e cambia nome in "Israele".</td>
+        </tr>
+        <tr>
+            <td>Giuseppe e i fratelli</td>
+            <td><span class="coord">Gen 45, 1-15</span></td>
+            <td>Giuseppe, diventato potente, perdona i fratelli che lo avevano tradito.</td>
+        </tr>
+        <tr>
+            <td>La caduta di Gerico</td>
+            <td><span class="coord">Gs 6, 1-20</span></td>
+            <td>Le mura crollano al suono delle trombe dei sacerdoti.</td>
+        </tr>
+        <tr>
+            <td>Il Banchetto finale</td>
+            <td><span class="coord">Is 25, 6-10</span></td>
+            <td>Dio prepara una festa con cibi succulenti per tutti i popoli.</td>
+        </tr>
+        <tr>
+            <td>Il vaso del Vasaio</td>
+            <td><span class="coord">Ger 18, 1-6</span></td>
+            <td>Dio modella il popolo come un vasaio modella l'argilla.</td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>
