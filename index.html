@@ -3,81 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detective delle Scritture: Bibbia & Corano</title>
+    <title>Bibbia & Corano: Digital Detective Pro</title>
     <style>
-        :root { --primary: #2c3e50; --secondary: #e67e22; --light: #f4f4f9; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--light); color: var(--primary); margin: 0; padding: 20px; }
-        .container { max-width: 800px; margin: auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        h1 { text-align: center; color: var(--secondary); border-bottom: 2px solid var(--secondary); padding-bottom: 10px; }
-        .section { margin-bottom: 30px; padding: 15px; border-left: 5px solid var(--secondary); background: #fff9f4; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .card { background: white; border: 1px solid #ddd; padding: 10px; border-radius: 8px; text-align: center; transition: 0.3s; }
-        .card:hover { transform: scale(1.05); border-color: var(--secondary); }
-        .v-box { background: #2c3e50; color: white; padding: 20px; border-radius: 10px; text-align: center; }
-        input { padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 60%; font-size: 1.1em; }
-        button { padding: 10px 20px; background: var(--secondary); color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
-        button:hover { background: #d35400; }
-        #feedback { margin-top: 15px; font-weight: bold; }
-        .info-tag { font-size: 0.8em; color: #666; font-style: italic; }
+        :root { --primary: #1a2a6c; --accent: #f2994a; --bg: #f0f2f5; --quran: #27ae60; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); padding: 20px; line-height: 1.6; }
+        .container { max-width: 1000px; margin: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        h1 { color: var(--primary); text-align: center; border-bottom: 3px solid var(--accent); }
+        
+        /* Personaggi Interattivi */
+        .character-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0; }
+        .char-card { background: white; border: 2px solid #ddd; border-radius: 15px; padding: 15px; text-align: center; cursor: pointer; transition: 0.3s; }
+        .char-card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .char-card img { width: 80px; height: 80px; border-radius: 50%; background: #eee; margin-bottom: 10px; }
+        .char-name { font-weight: bold; display: block; font-size: 1.2em; color: var(--primary); }
+        .char-alias { font-style: italic; color: var(--quran); font-size: 0.9em; }
+
+        /* Modal / Dettagli */
+        #detail-box { display: none; background: #fffbe6; border: 2px solid var(--accent); padding: 20px; border-radius: 15px; margin-top: 20px; animation: fadeIn 0.5s; }
+        
+        /* Tabella Missioni */
+        .mission-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 0.9em; }
+        .mission-table th { background: var(--primary); color: white; padding: 10px; }
+        .mission-table td { padding: 10px; border-bottom: 1px solid #eee; }
+        .coord { background: #e8f0fe; padding: 2px 5px; border-radius: 4px; font-family: monospace; font-weight: bold; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .btn-link { background: var(--primary); color: white; padding: 12px 25px; text-decoration: none; border-radius: 30px; display: inline-block; margin: 10px 0; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>📖 Detective delle Scritture</h1>
+    <h1>🕵️‍♂️ Bible & Quran Detective</h1>
+    
+    <center>
+        <p>Clicca sui personaggi per scoprire il loro "Identikit Condiviso" e sbloccare la ricerca!</p>
+        <a href="https://www.bibbiaedu.it/CEI2008/" target="_blank" class="btn-link">🌐 Apri BibbiaEdu (Sito CEI 2008)</a>
+    </center>
 
-    <div class="section">
-        <h3>1. Personaggi "Ponte" (Bibbia ↔ Corano)</h3>
-        <p>Clicca sui nomi per scoprire come si chiamano nel Corano!</p>
-        <div class="grid">
-            <div class="card" onclick="alert('In arabo: Ibrahim. È il padre dei credenti in entrambe le fedi.')"><strong>Abramo</strong></div>
-            <div class="card" onclick="alert('In arabo: Musa. È il profeta più citato nel Corano!')"><strong>Mosè</strong></div>
-            <div class="card" onclick="alert('In arabo: Maryam. Ha un intero capitolo dedicato a lei nel Corano.')"><strong>Maria</strong></div>
-            <div class="card" onclick="alert('In arabo: Nuh. Anche qui costruisce l\'arca per salvare il creato.')"><strong>Noè</strong></div>
+    <div class="character-grid">
+        <div class="char-card" onclick="showDetail('gesu')">
+            <span class="char-name">Gesù</span>
+            <span class="char-alias">Corano: 'Isa</span>
+        </div>
+        <div class="char-card" onclick="showDetail('maria')">
+            <span class="char-name">Maria</span>
+            <span class="char-alias">Corano: Maryam</span>
+        </div>
+        <div class="char-card" onclick="showDetail('isaia')">
+            <span class="char-name">Isaia</span>
+            <span class="char-alias">Profeta del Banchetto</span>
+        </div>
+        <div class="char-card" onclick="showDetail('giuseppe')">
+            <span class="char-name">Giuseppe</span>
+            <span class="char-alias">Corano: Yusuf</span>
         </div>
     </div>
-
-    <div class="section">
-        <h3>2. Com'è fatta la Bibbia?</h3>
-        <p>La Bibbia è una biblioteca di <strong>73 libri</strong>:</p>
-        <ul>
-            <li><strong>Antico Testamento:</strong> 46 libri (Storia prima di Gesù)</li>
-            <li><strong>Nuovo Testamento:</strong> 27 libri (Gesù e la Chiesa)</li>
-        </ul>
-    </div>
-
-    <div class="v-box">
-        <h3>3. Sfida: Decifra il Codice!</h3>
-        <p>Come indicheresti: <strong>Libro di Genesi, Capitolo 1, Versetti da 1 a 5</strong>?</p>
-        <input type="text" id="userInput" placeholder="Es: Gv 3, 16">
-        <button onclick="checkAnswer()">Verifica</button>
-        <div id="feedback"></div>
-        <p class="info-tag">Suggerimento: Usa la virgola tra capitolo e versetto e il trattino per l'intervallo (es: Gen 1, 1-5)</p>
-    </div>
-</div>
-
-<script>
-    function checkAnswer() {
-        const ans = document.getElementById('userInput').value.trim().toLowerCase();
-        const feedback = document.getElementById('feedback');
-        
-        // Accetta diverse varianti di spaziatura
-        if (ans === 'gen 1, 1-5' || ans === 'gen 1,1-5' || ans === 'genesi 1, 1-5') {
-            feedback.innerHTML = "✅ Eccellente! Codice sbloccato!";
-            feedback.style.color = "#2ecc71";
-            confetti();
-        } else {
-            feedback.innerHTML = "❌ Riprova! Ricorda: Nome Libro (abbreviato) + Spazio + Capitolo + Virgola + Spazio + Versetti.";
-            feedback.style.color = "#e74c3c";
-        }
-    }
-
-    // Piccola funzione per un effetto sorpresa
-    function confetti() {
-        document.body.style.backgroundColor = "#d4edda";
-        setTimeout(() => { document.body.style.backgroundColor = "#f4f4f9"; }, 1000);
-    }
-</script>
-
-</body>
-</html>
