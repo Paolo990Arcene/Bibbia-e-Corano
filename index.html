@@ -2,53 +2,346 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>Detective delle Scritture: Missione Bibbia-Corano</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detective delle Scritture: Bibbia & Corano</title>
     <style>
         :root {
             --primary: #1a2a6c;
             --accent: #f2994a;
             --quran: #27ae60;
+            --bg: #f0f2f5;
             --white: #ffffff;
         }
 
-        body { font-family: 'Segoe UI', Arial, sans-serif; background: #eef2f3; margin: 0; padding: 20px; }
-        .container { max-width: 1000px; margin: auto; background: var(--white); padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-        
-        h1 { text-align: center; color: var(--primary); font-size: 2.5em; margin-bottom: 10px; }
-        .subtitle { text-align: center; color: #666; margin-bottom: 30px; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
 
-        /* Griglia Carte */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
-        .card { 
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background: var(--white);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            border-bottom: 3px solid var(--accent);
+            display: inline-block;
+            width: 100%;
+            padding-bottom: 15px;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 40px;
+        }
+
+        /* Griglia Personaggi */
+        .character-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+
+        .char-card {
             background: linear-gradient(135deg, var(--primary), #3b5998);
-            color: white; padding: 30px 20px; border-radius: 15px; text-align: center;
-            cursor: pointer; transition: all 0.3s ease; border: none; font-size: 1.2em; font-weight: bold;
+            color: white;
+            padding: 30px 15px;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            font-size: 1.2rem;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border: none;
         }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0,0,0,0.2); background: var(--accent); }
 
-        /* Pop-up (Modal) */
-        .modal { 
-            display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; 
-            background-color: rgba(0,0,0,0.7); backdrop-filter: blur(5px);
+        .char-card:hover {
+            transform: translateY(-5px);
+            background: var(--accent);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
         }
-        .modal-content { 
-            background-color: white; margin: 10% auto; padding: 40px; border-radius: 20px; 
-            width: 80%; max-width: 500px; text-align: center; position: relative;
-            animation: slideDown 0.4s ease-out;
-        }
-        @keyframes slideDown { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        
-        .close { position: absolute; right: 20px; top: 15px; font-size: 28px; font-weight: bold; cursor: pointer; color: #999; }
-        .modal-h2 { color: var(--primary); margin-top: 0; border-bottom: 2px solid var(--accent); display: inline-block; padding-bottom: 5px; }
-        .modal-body { margin-top: 20px; line-height: 1.6; font-size: 1.1em; color: #444; }
-        .quran-name { color: var(--quran); font-weight: bold; font-size: 1.3em; display: block; margin: 10px 0; }
 
-        /* Tabella Missioni */
-        .mission-section { margin-top: 50px; background: #fdfdfd; padding: 20px; border-radius: 15px; border: 1px solid #ddd; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th { background: var(--primary); color: white; padding: 15px; text-align: left; }
-        td { padding: 15px; border-bottom: 1px solid #eee; }
-        .coord-box { background: #ffeaa7; padding: 5px 10px; border-radius: 5px; font-family: monospace; font-weight: bold; color: #d35400; }
-        .btn-web { display: block; width: fit-content; margin: 20px auto; background: var(--quran); color: white; padding: 15px 30px; text-decoration: none; border-radius: 50px; font-weight: bold; transition: 0.3s; }
-        .btn
+        /* Missioni Table */
+        .mission-section {
+            background: #fff;
+            border: 2px solid #e1e8ed;
+            border-radius: 15px;
+            padding: 25px;
+        }
+
+        .mission-section h3 {
+            color: var(--primary);
+            margin-top: 0;
+            border-left: 5px solid var(--accent);
+            padding-left: 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th {
+            background: var(--primary);
+            color: white;
+            padding: 15px;
+            text-align: left;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .coord-badge {
+            background: #ffeaa7;
+            color: #d35400;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .btn-external {
+            display: block;
+            width: fit-content;
+            margin: 30px auto;
+            background: var(--quran);
+            color: white;
+            padding: 15px 35px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: 0.3s;
+            box-shadow: 0 4px 10px rgba(39, 174, 96, 0.3);
+        }
+
+        .btn-external:hover {
+            background: #219150;
+            transform: scale(1.05);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 40px;
+            border-radius: 20px;
+            width: 80%;
+            max-width: 550px;
+            text-align: center;
+            position: relative;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .close {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            font-size: 30px;
+            font-weight: bold;
+            color: #aaa;
+            cursor: pointer;
+        }
+
+        .close:hover { color: #333; }
+
+        .modal-title {
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+
+        .modal-quran {
+            color: var(--quran);
+            font-weight: bold;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .modal-body {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #444;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🕵️‍♂️ Detective delle Scritture</h1>
+    <p class="subtitle">Esplora i legami tra Bibbia e Corano. Clicca sui personaggi per i dettagli e usa i codici per le missioni!</p>
+
+    <div class="character-grid">
+        <div class="char-card" onclick="openModal('abramo')">ABRAMO</div>
+        <div class="char-card" onclick="openModal('mose')">MOSÈ</div>
+        <div class="char-card" onclick="openModal('gesu')">GESÙ</div>
+        <div class="char-card" onclick="openModal('maria')">MARIA</div>
+        <div class="char-card" onclick="openModal('giona')">GIONA</div>
+        <div class="char-card" onclick="openModal('davide')">DAVIDE</div>
+        <div class="char-card" onclick="openModal('elia')">ELIA</div>
+        <div class="char-card" onclick="openModal('isaia')">ISAIA</div>
+    </div>
+
+    <a href="https://www.bibbiaedu.it/CEI2008/" target="_blank" class="btn-external">🌐 APRI BIBBIAEDU PER CERCARE I TESTI</a>
+
+    <div class="mission-section">
+        <h3>📖 Missioni di Ricerca e Sintesi</h3>
+        <p>Cerca questi brani su BibbiaEdu e scrivi la tua sintesi sulla scheda cartacea.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Episodio</th>
+                    <th>Coordinate (Codice)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Davide e Golia</td>
+                    <td><span class="coord-badge">1Sam 17, 40-51</span></td>
+                </tr>
+                <tr>
+                    <td>Il Buon Samaritano</td>
+                    <td><span class="coord-badge">Lc 10, 30-37</span></td>
+                </tr>
+                <tr>
+                    <td>Giacobbe lotta con l'angelo</td>
+                    <td><span class="coord-badge">Gen 32, 23-33</span></td>
+                </tr>
+                <tr>
+                    <td>Giuseppe perdona i fratelli</td>
+                    <td><span class="coord-badge">Gen 45, 1-15</span></td>
+                </tr>
+                <tr>
+                    <td>La presa di Gerico</td>
+                    <td><span class="coord-badge">Gs 6, 1-20</span></td>
+                </tr>
+                <tr>
+                    <td>Il Banchetto finale di Isaia</td>
+                    <td><span class="coord-badge">Is 25, 6-10</span></td>
+                </tr>
+                <tr>
+                    <td>La bottega del vasaio di Geremia</td>
+                    <td><span class="coord-badge">Ger 18, 1-6</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal Structure -->
+<div id="charModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2 id="modalTitle" class="modal-title">Nome</h2>
+        <span id="modalQuran" class="modal-quran">Corano: Nome</span>
+        <div id="modalBody" class="modal-body">
+            Descrizione del personaggio...
+        </div>
+    </div>
+</div>
+
+<script>
+    const characters = {
+        abramo: {
+            t: "Abramo",
+            q: "Ibrahim",
+            d: "È il padre della fede per ebrei, cristiani e musulmani. Sia nella Bibbia che nel Corano è colui che abbandona gli idoli per seguire l'unico vero Dio. Nel Corano è chiamato 'Khalilullah' (l'amico di Dio)."
+        },
+        mose: {
+            t: "Mosè",
+            q: "Musa",
+            d: "Il grande liberatore dall'Egitto. È il profeta più menzionato nel Corano. Come nella Bibbia, riceve le tavole della Legge e parla direttamente con Dio sul monte Sinai."
+        },
+        gesu: {
+            t: "Gesù",
+            q: "'Isa",
+            d: "Nella Bibbia è il Figlio di Dio e Salvatore. Nel Corano è un Messia e un profeta importantissimo, nato miracolosamente da Maria vergine, capace di fare miracoli fin da bambino."
+        },
+        maria: {
+            t: "Maria",
+            q: "Maryam",
+            d: "L'unica donna ad avere un intero capitolo (Sura) dedicato a lei nel Corano. È rispettata in entrambi i testi come modello di purezza, umiltà e fede assoluta in Dio."
+        },
+        giona: {
+            t: "Giona",
+            q: "Yunus",
+            d: "Il profeta inghiottito dal grande pesce per aver tentato di fuggire dalla missione di Dio. In entrambi i libri rappresenta il pentimento e la misericordia di Dio verso tutti i popoli."
+        },
+        davide: {
+            t: "Davide",
+            q: "Dawud",
+            d: "Il re pastore che compose i Salmi (Zabur). Nel Corano è celebrato per la sua forza nel sconfiggere Golia e per la sua voce armoniosa che lodava Dio insieme alla natura."
+        },
+        elia: {
+            t: "Elia",
+            q: "Ilyas",
+            d: "Un profeta coraggioso che sfida i falsi dei. Sia nella Bibbia che nel Corano è visto come il difensore del monoteismo contro l'idolatria del popolo."
+        },
+        isaia: {
+            t: "Isaia",
+            q: "Ishiya",
+            d: "Il profeta della speranza. Sebbene non sia citato per nome nel Corano, la tradizione lo riconosce come colui che annunciò un banchetto di pace universale dove Dio asciugherà ogni lacrima."
+        }
+    };
+
+    const modal = document.getElementById("charModal");
+
+    function openModal(key) {
+        const char = characters[key];
+        document.getElementById("modalTitle").innerText = char.t;
+        document.getElementById("modalQuran").innerText = "Nel Corano: " + char.q;
+        document.getElementById("modalBody").innerText = char.d;
+        modal.style.display = "block";
+    }
+
+    function closeModal() {
+        modal.style.display = "none";
+    }
+
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            closeModal();
+        }
+    }
+</script>
+
+</body>
+</html>
